@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import RoleCreate from "./pages/roles/RoleCreate";
+import RoleEdit from "./pages/roles/RoleEdit";
 import Roles from "./pages/roles/Roles";
 import UserCreate from "./pages/users/UserCreate";
 import UserEdit from "./pages/users/UserEdit";
@@ -21,6 +22,7 @@ function App() {
         <Route path={"/users/:id/edit"} component={UserEdit} />
         <Route path={"/roles"} exact component={Roles} />
         <Route path={"/roles/create"} component={RoleCreate} />
+        <Route path={"/roles/:id/edit"} component={RoleEdit} />
         
       </BrowserRouter>
     </div>

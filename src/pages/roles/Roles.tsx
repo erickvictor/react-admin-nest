@@ -51,7 +51,7 @@ const Roles = () => {
                     <div className="btn-group mr-2">
                       <Link
                         className="btn btn-sm btn-outline-secondary"
-                        to={`/users/${role.id}/edit`}
+                        to={`/roles/${role.id}/edit`}
                       >
                         Edit
                       </Link>
