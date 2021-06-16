@@ -2,6 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import ProductCreate from "./pages/products/ProductCreate";
 import Products from "./pages/products/Products";
 import Register from "./pages/Register";
 import RoleCreate from "./pages/roles/RoleCreate";
@@ -24,7 +25,8 @@ function App() {
         <Route path={"/roles"} exact component={Roles} />
         <Route path={"/roles/create"} component={RoleCreate} />
         <Route path={"/roles/:id/edit"} component={RoleEdit} />
-        <Route path={"/products"} component={Products} />
+        <Route path={"/products"} exact component={Products} />
+        <Route path={"/products/create"} component={ProductCreate} />
         
       </BrowserRouter>
     </div>

@@ -33,6 +33,11 @@ const Products = () => {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Products</h1>
         </div>
+        <div className="pt-3 pb-2 mb-3 border-bottom">
+          <Link to="/products/create" className="btn btn-sm btn-outline-secondary">
+            Add
+          </Link>
+        </div>
         <table className="table table-striped table-sm">
           <thead>
             <tr>
