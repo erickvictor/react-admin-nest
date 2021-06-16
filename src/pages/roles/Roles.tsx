@@ -28,6 +28,11 @@ const Roles = () => {
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Roles</h1>
         </div>
+        <div className="pt-3 pb-2 mb-3 border-bottom">
+          <Link to="/roles/create" className="btn btn-sm btn-outline-secondary">
+            Add
+          </Link>
+        </div>
         <table className="table table-striped table-sm">
           <thead>
             <tr>
