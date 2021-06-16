@@ -9,27 +9,34 @@ const Users = () => {
   const [lastPage, setLastPage] = useState(0);
 
   useEffect(() => {
-    (
-      async () => {
-        const { data } = await axios.get(`users?page=${page}`);
+    (async () => {
+      const { data } = await axios.get(`users?page=${page}`);
 
-        setUsers(data.data);
-        setLastPage(data.meta.last_page);
-      }
-    )()
+      setUsers(data.data);
+      setLastPage(data.meta.last_page);
+    })();
   }, [page]);
 
   const next = () => {
     if (page < lastPage) {
       setPage(page + 1);
     }
-  }
+  };
 
   const prev = () => {
     if (page > 1) {
-      setPage(page -1);
+      setPage(page - 1);
     }
-  }
+  };
+
+
+  const del = async (id: number) => {
+    if (window.confirm('Are you sure you want to delete this record?')) {
+      await axios.delete(`users/${id}`);
+
+      setUsers(users.filter((u: User) => u.id !== id));
+    }
+  };
 
   return (
     <Wrapper>
@@ -52,12 +59,23 @@ const Users = () => {
               return (
                 <tr key={user.id}>
                   <td>{user.id}</td>
-                  <td>{user.first_name} {user.last_name}</td>
+                  <td>
+                    {user.first_name} {user.last_name}
+                  </td>
                   <td>{user.email}</td>
                   <td>{user.role.name}</td>
-                  <td></td>
+                  <td>
+                    <div className="btn-group mr-2">
+                      <button
+                        className="btn btn-sm btn-outline-secondary"
+                        onClick={() => del(user.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
@@ -66,10 +84,14 @@ const Users = () => {
       <nav>
         <ul className="pagination">
           <li className="page-item">
-            <button className="page-link" onClick={prev}>Previous</button>
+            <button className="page-link" onClick={prev}>
+              Previous
+            </button>
           </li>
           <li className="page-item">
-          <button className="page-link" onClick={next}>Next</button>
+            <button className="page-link" onClick={next}>
+              Next
+            </button>
           </li>
         </ul>
       </nav>
