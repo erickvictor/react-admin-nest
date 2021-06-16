@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Wrapper from "../../components/Wrapper";
 import { User } from "../../models/user";
 
@@ -40,9 +41,12 @@ const Users = () => {
 
   return (
     <Wrapper>
-      <div className="table-responsive">
+      <div className="table-responsive">  
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Users</h1>
+        </div>
+        <div className="pt-3 pb-2 mb-3 border-bottom">
+          <Link to="/users/create" className="btn btn-sm btn-outline-secondary">Add</Link>
         </div>
         <table className="table table-striped table-sm">
           <thead>
