@@ -2,6 +2,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Orders from "./pages/orders/Orders";
 import ProductCreate from "./pages/products/ProductCreate";
 import ProductEdit from "./pages/products/ProductEdit";
 import Products from "./pages/products/Products";
@@ -29,7 +30,7 @@ function App() {
         <Route path={"/products"} exact component={Products} />
         <Route path={"/products/create"} component={ProductCreate} />
         <Route path={"/products/:id/edit"} component={ProductEdit} />
-        
+        <Route path={"/orders"} exact component={Orders} />
       </BrowserRouter>
     </div>
   );
