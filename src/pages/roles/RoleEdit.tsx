@@ -49,7 +49,7 @@ const RoleEdit = (props: any) => {
   return (
     <Wrapper>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 className="h2">Create Role</h1>
+        <h1 className="h2">Edit Role</h1>
       </div>
       <form onSubmit={submit}>
         <div className="mb-3 col-sm-10">
