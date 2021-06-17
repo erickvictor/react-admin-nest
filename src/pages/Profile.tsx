@@ -1,44 +1,45 @@
 import axios from "axios";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { Dispatch, SyntheticEvent, useEffect, useState } from "react";
 import Wrapper from "../components/Wrapper";
+import { connect } from "react-redux";
+import { User } from "../models/user";
+import { setUser } from "../redux/actions/setUserAction";
 
-const Profile = () => {
-  const [first_name, setFirstName] = useState('');
-  const [last_name, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [password_confirm, setPasswordConfirm] = useState('');
+const Profile = (props: { user: User; setUser: (user: User) => void }) => {
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [password_confirm, setPasswordConfirm] = useState("");
 
   useEffect(() => {
-    (
-      async () => {
-        const { data } = await axios.get('user');
-
-        setFirstName(data.first_name);
-        setLastName(data.last_name);
-        setEmail(data.email);
-      }
-    )()
-  }, [])
+    setFirstName(props.user.first_name);
+    setLastName(props.user.last_name);
+    setEmail(props.user.email);
+  }, [props.user]);
 
   const infoSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    await axios.put('users/info', {
+    const { data } = await axios.put("users/info", {
       first_name,
       last_name,
-      email
-    })
-  }
+      email,
+    });
+
+    props.setUser(
+      new User(data.id, data.first_name, data.last_name, data.email, data.role)
+    );
+  };
 
   const passwordSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
-    await axios.put('users/password', {
+    await axios.put("users/password", {
       password,
-      password_confirm
-    })
-  }
+      password_confirm,
+    });
+  };
 
   return (
     <Wrapper>
@@ -51,19 +52,37 @@ const Profile = () => {
           <label htmlFor="FirstName" className="form-label">
             First Name
           </label>
-          <input id="FirstName" defaultValue={first_name} onChange={e => setFirstName(e.target.value)} type="text" className="form-control" />
+          <input
+            id="FirstName"
+            defaultValue={first_name}
+            onChange={(e) => setFirstName(e.target.value)}
+            type="text"
+            className="form-control"
+          />
         </div>
         <div className="mb-3 col-sm-10">
           <label htmlFor="LastName" className="form-label">
             Last Name
           </label>
-          <input id="LastName" defaultValue={last_name} onChange={e => setLastName(e.target.value)} type="text" className="form-control" />
+          <input
+            id="LastName"
+            defaultValue={last_name}
+            onChange={(e) => setLastName(e.target.value)}
+            type="text"
+            className="form-control"
+          />
         </div>
         <div className="mb-4 col-sm-10">
           <label htmlFor="Email" className="form-label">
             Email
           </label>
-          <input id="Email" defaultValue={email} onChange={e => setEmail(e.target.value)} type="email" className="form-control" />
+          <input
+            id="Email"
+            defaultValue={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            className="form-control"
+          />
         </div>
 
         <button className="btn btn-outline-secondary">Save</button>
@@ -75,13 +94,23 @@ const Profile = () => {
           <label htmlFor="Password" className="form-label">
             Password
           </label>
-          <input id="Password" onChange={e => setPassword(e.target.value)} type="password" className="form-control" />
+          <input
+            id="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            className="form-control"
+          />
         </div>
         <div className="mb-4 col-sm-10">
           <label htmlFor="PasswordConfirm" className="form-label">
             Password Confirm
           </label>
-          <input id="PasswordConfirm" onChange={e => setPasswordConfirm(e.target.value)} type="password" className="form-control" />
+          <input
+            id="PasswordConfirm"
+            onChange={(e) => setPasswordConfirm(e.target.value)}
+            type="password"
+            className="form-control"
+          />
         </div>
 
         <button className="btn btn-outline-secondary mb-4">Save</button>
@@ -90,4 +119,15 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default connect(
+  (state: { user: User }) => {
+    return {
+      user: state.user,
+    };
+  },
+  (dispatch: Dispatch<any>) => {
+    return {
+      setUser: (user: User) => dispatch(setUser(user)),
+    };
+  }
+)(Profile);
