@@ -5,10 +5,21 @@ import Wrapper from "../../components/Wrapper";
 import { Order } from "../../models/order";
 import { OrderItem } from "../../models/order-item";
 
+const hide = {
+  maxHeight: 0,
+  transition: '1000ms ease-in'
+}
+
+const show = {
+  maxHeight: '150px',
+  transition: '1000ms ease-out'
+}
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(0);
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     (async () => {
@@ -19,13 +30,17 @@ const Orders = () => {
     })();
   }, [page]);
 
+  const select = (id: number) => {
+    setSelected(selected !== id ? id : 0);
+  }
+
   return (
     <Wrapper>
       <div className="table-responsive">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <h1 className="h2">Roles</h1>
         </div>
-        <table className="table table-striped table-sm">
+        <table className="table table-sm">
           <thead>
             <tr>
               <th>#</th>
@@ -45,14 +60,14 @@ const Orders = () => {
                     <td>{o.email}</td>
                     <td>{o.total}</td>
                     <td>
-                      <button className="btn btn-sm btn-outline-secondary">
+                      <button onClick={() => select(o.id)} className="btn btn-sm btn-outline-secondary">
                         View
                       </button>
                     </td>
                   </tr>
                   <tr>
                     <td colSpan={5}>
-                      <div>
+                      <div className="overflow-hidden" style={ selected === o.id ? show : hide }>
                         <table className="table table-sm">
                           <thead>
                             <th>#</th>
