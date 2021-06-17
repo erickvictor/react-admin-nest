@@ -6,6 +6,7 @@ import Orders from "./pages/orders/Orders";
 import ProductCreate from "./pages/products/ProductCreate";
 import ProductEdit from "./pages/products/ProductEdit";
 import Products from "./pages/products/Products";
+import Profile from "./pages/Profile";
 import Register from "./pages/Register";
 import RoleCreate from "./pages/roles/RoleCreate";
 import RoleEdit from "./pages/roles/RoleEdit";
@@ -19,6 +20,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Route path={"/"} exact component={Dashboard} />
+        <Route path={"/profile"} exact component={Profile} />
         <Route path={"/register"} component={Register} />
         <Route path={"/login"} component={Login} />
         <Route path={"/users"} exact component={Users} />
