@@ -34,11 +34,27 @@ const Orders = () => {
     setSelected(selected !== id ? id : 0);
   }
 
+  const handleExport = async () => {
+    const { data } = await axios.post('export', {}, {responseType: 'blob'});
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const blob = new Blob([data], {type: 'text/csv'});
+    const url = window.URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'orders.csv';
+    link.click();
+  }
+
   return (
     <Wrapper>
       <div className="table-responsive">
         <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 className="h2">Roles</h1>
+          <h1 className="h2">Orders</h1>
+        </div>
+        <div className="pt-3 pb-2 mb-3 border-bottom">
+          <button onClick={handleExport} className="btn btn-sm btn-outline-secondary">
+            Export
+          </button>
         </div>
         <table className="table table-sm">
           <thead>
